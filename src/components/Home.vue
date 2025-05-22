@@ -4,7 +4,7 @@
   </div>
 </template>
 <script>
-import foodRecipe from '../assets/foodRecipe.jpg';
+ import foodRecipe from '../assets/foodRecipe.jpg';
 
 export default {
   name: 'HomePage',

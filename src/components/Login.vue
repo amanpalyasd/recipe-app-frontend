@@ -1,6 +1,6 @@
 <script>
 import { login } from '../services/apiService';
-
+import { jwtDecode } from 'jwt-decode';
 
 export default {
   data() {
@@ -10,14 +10,29 @@ export default {
     };
   },
   methods: {
-    submitLogin() {
+  async submitLogin() {
+  try {
+    const response = await login(this.username, this.password);
+    const decoded = jwtDecode(response.token);
+    const token = response.token;
+    console.log("role::",decoded.role);
+    
+    const role = decoded.role;
+    // Save to sessionStorage
+    sessionStorage.setItem('token', token);
+    sessionStorage.setItem('role', role);
+    // Navigate based on role
+    if (role === 'ROLE_ADMIN') {
+      this.$router.push('/dashboard');
+    } else if (role === 'ROLE_USER') {
+      this.$router.push('/dashboard');
+    }
 
-      alert(`Logging in with email: ${this.username}`);
-      // Implement your login logic here
-      const response = login(this.username,this.password);
-      console.log(response);
-      
-    },
+  } catch (error) {
+    // console.error("Invalid login", error);
+    // alert("Login failed: Invalid username or password");
+  }
+},
   },
 };
 </script>

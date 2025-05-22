@@ -11,6 +11,8 @@
       <div class="navbar-nav ms-auto">
           <router-link to="/login" class="btn btn-outline-primary me-2">Login</router-link>
           <router-link to="/register" class="btn btn-outline-primary">Register</router-link>
+         
+      <router-link v-if="role === 'USER'" to="/foods">Foods</router-link>
         </div>
     </div>
   </div>
